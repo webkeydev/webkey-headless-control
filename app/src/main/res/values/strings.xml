@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">ServiceStarter</string>
+    <string name="start_service">Start Service</string>
+    <string name="activate_service">Activate Service</string>
+    <string name="deactivate_service">Deactivate Service</string>
+    <string name="kill_service">Kill Service</string>
+    <string name="force_kill_service">Force Kill Service</string>
+    <string name="update_settings">Update settings</string>
+</resources>

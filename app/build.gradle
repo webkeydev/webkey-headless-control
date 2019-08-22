@@ -1,0 +1,72 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.webkey.headlesscontrol"
+        minSdkVersion 19
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    signingConfigs {
+        production
+        systemsignDebug
+        readProductionSigningKey()
+        readSystemsignSigingKey()
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.systemsignDebug
+        }
+        debug {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            debuggable true
+            signingConfig signingConfigs.systemsignDebug
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}
+
+def readProductionSigningKey() {
+    Properties props = new Properties()
+    def propFile = file(project.RELEASE_KEY_CONFIG_FILE)
+
+    if (propFile.canRead()) {
+        props.load(new FileInputStream(propFile))
+        android.signingConfigs.production.storeFile = file(props['STORE_FILE'])
+        android.signingConfigs.production.storePassword = props['STORE_PASSWORD']
+        android.signingConfigs.production.keyAlias = props['KEY_ALIAS']
+        android.signingConfigs.production.keyPassword = props['KEY_PASSWORD']
+    }
+}
+
+def readSystemsignSigingKey() {
+    Properties props = new Properties()
+    def propFile = file(project.SYSTEM_KEY_CONFIG_FILE)
+
+    if (!propFile.canRead()) {
+        throw new GradleException("Required $project.SYSTEM_KEY_CONFIG_FILE is not readable.")
+    }
+
+    props.load(new FileInputStream(propFile))
+    android.signingConfigs.systemsignDebug.storeFile = file(props['STORE_FILE'])
+    android.signingConfigs.systemsignDebug.storePassword = props['STORE_PASSWORD']
+    android.signingConfigs.systemsignDebug.keyAlias = props['KEY_ALIAS']
+    android.signingConfigs.systemsignDebug.keyPassword = props['KEY_PASSWORD']
+}
