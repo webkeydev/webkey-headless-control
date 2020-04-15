@@ -6,4 +6,5 @@
     <string name="kill_service">Kill Service</string>
     <string name="force_kill_service">Force Kill Service</string>
     <string name="update_settings">Update settings</string>
+    <string name="get_connection_status">Get connection status</string>
 </resources>

@@ -28,14 +28,6 @@
             tools:layout_editor_absoluteY="91dp" />
 
         <Button
-            android:id="@+id/deactivate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/deactivate_service"
-            tools:layout_editor_absoluteX="6dp"
-            tools:layout_editor_absoluteY="153dp" />
-
-        <Button
             android:id="@+id/kill"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -56,6 +48,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/update_settings"
+            tools:layout_editor_absoluteX="6dp"
+            tools:layout_editor_absoluteY="153dp" />
+
+        <Button
+            android:id="@+id/get_connection_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/get_connection_status"
             tools:layout_editor_absoluteX="6dp"
             tools:layout_editor_absoluteY="153dp" />
 
