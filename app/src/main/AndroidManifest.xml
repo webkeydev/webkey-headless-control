@@ -23,7 +23,7 @@
             android:enabled="true"
             android:exported="true">
             <intent-filter>
-                <action android:name="com.webkey.intent.action.CONNECTION_STATUS" />
+                <action android:name="com.webkey.servicestarter.intent.action.CONNECTION_STATUS" />
             </intent-filter>
         </receiver>
     </application>

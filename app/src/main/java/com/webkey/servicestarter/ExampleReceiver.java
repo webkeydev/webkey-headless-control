@@ -8,8 +8,8 @@ import android.widget.Toast;
 
 public class ExampleReceiver extends BroadcastReceiver {
 
-    private static final String WEBKEY_INTENT_ACTION_CONNECTION_STATUS = "com.webkey.intent.action.CONNECTION_STATUS";
-    private static final String INTENT_PARAM_CONNECTION_STATUS = "CONNECTED";
+    public static final String WEBKEY_INTENT_ACTION_CONNECTION_STATUS = "com.webkey.servicestarter.intent.action.CONNECTION_STATUS";
+    private static final String INTENT_PARAM_CONNECTION_STATUS = "connected";
 
     @Override
     public void onReceive(Context context, Intent intent) {

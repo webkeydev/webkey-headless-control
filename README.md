@@ -73,21 +73,30 @@ public void stopService() {
 }
 ```
 
-### Request the connection status from the Webkey service. The "receiver_package" parameter is required.
-The service sends the response as **com.webkey.intent.action.CONNECTION_STATUS** intent.
+### Request the connection status from the Webkey service.
+The Webkey service send respons with pending intent. You must implement an intent receiver.
+The pending intent key in the broadcast inntent is the **receiver**.
+
 If no intent is coming the Webkey service is inactive so the connection is offline.
 ```java
 public void getConnectionStatus() {
-	Intent getConnectionStatusIntent = new Intent(
-	"com.webkey.intent.action.GET_CONNECTION_STATUS");
-    getConnectionStatusIntent.putExtra("receiver_package", getApplicationContext().getPackageName());
-    sendBroadcast(getConnectionStatusIntent);
+    Intent getConnectionStatusIntent = new Intent(MainActivity.this, ExampleReceiver.class);
+    getConnectionStatusIntent.setAction(ExampleReceiver.WEBKEY_INTENT_ACTION_CONNECTION_STATUS);
+
+    PendingIntent pi = PendingIntent.getBroadcast(context, 10, getConnectionStatusIntent, 0);
+
+    Bundle bundle = new Bundle();
+    bundle.putParcelable("receiver", pi);
+
+    Intent serviceIntent = new Intent("com.webkey.intent.action.GET_CONNECTION_STATUS");
+    serviceIntent.putExtras(bundle);
+    sendBroadcast(serviceIntent);
 }
 ```
 
 ### Receive the connection status
-To receive the connection status you have to implement a bradcast receiver. The Webkey client 
-application will send brodcast message with **com.webkey.intent.action.CONNECTION_STATUS** action 
-after the serivce has received the connection status request. The intent contains a bool type 
-extra **CONNECTED**. The true value means that the service has been connected to the server.
-Example of the broadcast receiver is in "ExampleReceiver.java" file.
+To receive the connection status you have to implement an intent receiver. The Webkey client
+application will send response intent with the given action  after the serivce has received the
+connection status request. The intent contains a bool type extra **connected**. The true value means
+that the service has been connected to the server. Example of the broadcast receiver is
+in "ExampleReceiver.java" file.

@@ -1,5 +1,6 @@
 package com.webkey.servicestarter;
 
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
@@ -74,9 +75,17 @@ public class MainActivity extends AppCompatActivity {
         getConnectionStatus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent getConnectionStatusIntent = new Intent("com.webkey.intent.action.GET_CONNECTION_STATUS");
-                getConnectionStatusIntent.putExtra("receiver_package", getApplicationContext().getPackageName());
-                sendBroadcast(getConnectionStatusIntent);
+                Intent getConnectionStatusIntent = new Intent(MainActivity.this, ExampleReceiver.class);
+                getConnectionStatusIntent.setAction(ExampleReceiver.WEBKEY_INTENT_ACTION_CONNECTION_STATUS);
+
+                PendingIntent pi = PendingIntent.getBroadcast(MainActivity.this, 10, getConnectionStatusIntent, 0);
+
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("receiver", pi);
+
+                Intent serviceIntent = new Intent("com.webkey.intent.action.GET_CONNECTION_STATUS");
+                serviceIntent.putExtras(bundle);
+                sendBroadcast(serviceIntent);
             }
         });
     }
