@@ -75,7 +75,7 @@ public void stopService() {
 
 ### Request the connection status from the Webkey service.
 The Webkey service send respons with pending intent. You must implement an intent receiver.
-The pending intent key in the broadcast inntent is the **receiver**.
+The pending intent key in the broadcast intent is the **receiver**.
 
 If no intent is coming the Webkey service is inactive so the connection is offline.
 ```java
@@ -97,6 +97,6 @@ public void getConnectionStatus() {
 ### Receive the connection status
 To receive the connection status you have to implement an intent receiver. The Webkey client
 application will send response intent with the given action  after the serivce has received the
-connection status request. The intent contains a bool type extra **connected**. The true value means
-that the service has been connected to the server. Example of the broadcast receiver is
-in "ExampleReceiver.java" file.
+connection status request. The intent contains a bool type extra. The value name is **connected**.
+The true value means that the service has been connected to the server. Example of the broadcast 
+receiver is in "ExampleReceiver.java" file.
