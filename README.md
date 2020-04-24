@@ -105,6 +105,6 @@ application will send response intent with the given action  after the service h
 connection status request. The intent contains two extas.
 - Type: bool, value name: **connected**. The true value means that the service has been connected to the server.
 - Type: String, value name: **serial_id**. It represent the serial id of the device. With this id 
-you can refer to this device on the Webkey Dashboard.
+you can refer to this device on the Webkey Dashboard. The serial has been validated by "^[0-9A-Za-z:]{1,50}$" expression
 
 Example of the broadcast receiver is in "ExampleReceiver.java" file.
