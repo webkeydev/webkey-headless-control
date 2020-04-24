@@ -9,9 +9,6 @@ import android.view.View;
 import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String INTENT_KEY_HARBOR_ADDRESS = "harbor_address";
-    private static final String INTENT_KEY_FLEET_ID = "fleet_id";
-    private static final String TEST_FLEET_ID = "ba8df2f3-b53a-4ee7-ad26-f74b4e669d14";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +64,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent updateSettingsIntent = new Intent("com.webkey.intent.action.UPDATE_APP_SETTINGS");
-                updateSettingsIntent.putExtra(INTENT_KEY_HARBOR_ADDRESS, "connect.webkey.cc");
-                updateSettingsIntent.putExtra(INTENT_KEY_FLEET_ID, TEST_FLEET_ID);
+                updateSettingsIntent.putExtra("harbor_address", "connect.webkey.cc");
+                updateSettingsIntent.putExtra("fleet_id", "ba8df2f3-b53a-4ee7-ad26-f74b4e669d14");
+                updateSettingsIntent.putExtra("serial_id", "xyz:mydevice");
                 sendBroadcast(updateSettingsIntent);
             }
         });

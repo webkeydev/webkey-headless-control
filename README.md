@@ -35,13 +35,18 @@ public void startWebkeyService() {
 }
 ```
 
-### Update server address and fleet id
+### Update settings
+You can set custom settings. The parameters are optional.
+- fleet id
+- server address
+- custom, external serial id
 ```java
 public void updateSettings() {
     Intent updateSettingsIntent = new Intent(
        "com.webkey.intent.action.UPDATE_APP_SETTINGS");
     updateSettingsIntent.putExtra(“fleet_id”,”<UUID_FLEET_ID>”);
     updateSettingsIntent.putExtra(“harbor_address”,”<SERVER_ADDRESS>”);
+    updateSettingsIntent.putExtra(“serial_id”,”<CUSTOM_EXTERNAL_SERIAL_ID>”);
     sendBroadcast(updateSettingsIntent);
 }
 ```
@@ -73,8 +78,8 @@ public void stopService() {
 }
 ```
 
-### Request the connection status from the Webkey service.
-The Webkey service send respons with pending intent. You must implement an intent receiver.
+### Request the connection status and serial id from the Webkey service.
+The Webkey service send response with pending intent. You must implement an intent receiver.
 The pending intent key in the broadcast intent is the **receiver**.
 
 If no intent is coming the Webkey service is inactive so the connection is offline.
@@ -96,7 +101,10 @@ public void getConnectionStatus() {
 
 ### Receive the connection status
 To receive the connection status you have to implement an intent receiver. The Webkey client
-application will send response intent with the given action  after the serivce has received the
-connection status request. The intent contains a bool type extra. The value name is **connected**.
-The true value means that the service has been connected to the server. Example of the broadcast 
-receiver is in "ExampleReceiver.java" file.
+application will send response intent with the given action  after the service has received the
+connection status request. The intent contains two extas.
+- Type: bool, value name: **connected**. The true value means that the service has been connected to the server.
+- Type: String, value name: **serial_id**. It represent the serial id of the device. With this id 
+you can refer to this device on the Webkey Dashboard.
+
+Example of the broadcast receiver is in "ExampleReceiver.java" file.
